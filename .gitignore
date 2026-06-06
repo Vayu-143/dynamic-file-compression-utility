@@ -1,6 +1,43 @@
-venv/
 __pycache__/
-.pytest_cache/
 *.pyc
+
+venv/
+.env
+
 logs/*.log
-compressed_files/*.bin
+
+compressed_files/*
+decompressed_files/*
+archives/*
+
+outputs/*
+database/*.db
+
+.pytest_cache/
+
+.idea/
+.vscode/
+
+.DS_Store
+# Runtime Files
+compressed_files/*
+decompressed_files/*
+outputs/*
+logs/*
+archives/*
+database/*.db
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Environment
+venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store

@@ -1,6 +1,0 @@
-Compression Report
-==============================
-Original Size : 30 bytes
-Compressed Size : 17 bytes
-Compression Ratio : 43.33%
-Execution Time : 0.0 sec
