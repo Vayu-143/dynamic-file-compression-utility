@@ -1,0 +1,10 @@
+Dynamic File Compression Utility
+
+This project demonstrates:
+
+- Huffman Coding
+- Binary Compression
+- Archive Creation
+- File Extraction
+- Analytics
+- Benchmarking
