@@ -11,9 +11,9 @@ __pycache__/
 # ==========================================
 
 venv/
+.venv/
 env/
 ENV/
-.venv/
 
 # ==========================================
 # Environment Variables
@@ -23,28 +23,11 @@ ENV/
 .env.*
 
 # ==========================================
-# Database
+# IDE / Editor
 # ==========================================
 
-database/*.db
-*.sqlite3
-
-# ==========================================
-# Runtime Generated Files
-# ==========================================
-
-compressed_files/*
-decompressed_files/*
-archives/*
-outputs/*
-logs/*
-
-# Keep folders in Git
-!compressed_files/.gitkeep
-!decompressed_files/.gitkeep
-!archives/.gitkeep
-!outputs/.gitkeep
-!logs/.gitkeep
+.vscode/
+.idea/
 
 # ==========================================
 # Testing
@@ -55,7 +38,48 @@ logs/*
 htmlcov/
 
 # ==========================================
-# Build / Distribution
+# Logs
+# ==========================================
+
+logs/*
+!logs/.gitkeep
+
+*.log
+
+# ==========================================
+# Runtime Generated Files
+# ==========================================
+
+compressed_files/*
+!compressed_files/.gitkeep
+
+decompressed_files/*
+!decompressed_files/.gitkeep
+
+archives/*
+!archives/.gitkeep
+
+outputs/*
+!outputs/.gitkeep
+
+# ==========================================
+# Database
+# ==========================================
+
+database/*.db
+database/*.sqlite
+database/*.sqlite3
+
+# ==========================================
+# Operating System Files
+# ==========================================
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==========================================
+# Build Files
 # ==========================================
 
 build/
@@ -63,30 +87,10 @@ dist/
 *.egg-info/
 
 # ==========================================
-# IDE / Editor
-# ==========================================
-
-.vscode/
-.idea/
-
-# ==========================================
-# OS Files
-# ==========================================
-
-.DS_Store
-Thumbs.db
-
-# ==========================================
 # Jupyter
 # ==========================================
 
 .ipynb_checkpoints/
-
-# ==========================================
-# Logs
-# ==========================================
-
-*.log
 
 # ==========================================
 # Misc
