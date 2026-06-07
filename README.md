@@ -70,6 +70,41 @@ The system provides:
 - Bootstrap 5 Components
 
 ---
+## 📸 Screenshots
+
+### Dashboard Home
+
+![Dashboard Home](images/dashboard-home.png)
+
+---
+
+### File Compression
+
+![File Compression](images/file-compression.png)
+
+---
+
+### File Decompression
+
+![File Decompression](images/file-decompression.png)
+
+---
+
+### Statistics Dashboard
+
+![Statistics Dashboard](images/statistics-dashboard.png)
+
+---
+
+### History Tracking
+
+![History Tracking](images/history-tracking.png)
+
+---
+
+### API Documentation (Swagger UI)
+
+![Swagger Docs](images/swagger-docs.png)
 
 ## Technology Stack
 
