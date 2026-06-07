@@ -1,43 +1,97 @@
+# ==========================================
+# Python
+# ==========================================
+
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# ==========================================
+# Virtual Environment
+# ==========================================
 
 venv/
-.env
+env/
+ENV/
+.venv/
 
-logs/*.log
+# ==========================================
+# Environment Variables
+# ==========================================
+
+.env
+.env.*
+
+# ==========================================
+# Database
+# ==========================================
+
+database/*.db
+*.sqlite3
+
+# ==========================================
+# Runtime Generated Files
+# ==========================================
 
 compressed_files/*
 decompressed_files/*
 archives/*
-
-outputs/*
-database/*.db
-
-.pytest_cache/
-
-.idea/
-.vscode/
-
-.DS_Store
-# Runtime Files
-compressed_files/*
-decompressed_files/*
 outputs/*
 logs/*
-archives/*
-database/*.db
 
-# Python
-__pycache__/
-*.pyc
+# Keep folders in Git
+!compressed_files/.gitkeep
+!decompressed_files/.gitkeep
+!archives/.gitkeep
+!outputs/.gitkeep
+!logs/.gitkeep
 
-# Virtual Environment
-venv/
-.env
+# ==========================================
+# Testing
+# ==========================================
 
-# IDE
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ==========================================
+# Build / Distribution
+# ==========================================
+
+build/
+dist/
+*.egg-info/
+
+# ==========================================
+# IDE / Editor
+# ==========================================
+
 .vscode/
 .idea/
 
-# OS
+# ==========================================
+# OS Files
+# ==========================================
+
 .DS_Store
+Thumbs.db
+
+# ==========================================
+# Jupyter
+# ==========================================
+
+.ipynb_checkpoints/
+
+# ==========================================
+# Logs
+# ==========================================
+
+*.log
+
+# ==========================================
+# Misc
+# ==========================================
+
+*.tmp
+*.bak
+*.swp

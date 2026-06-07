@@ -1,0 +1,72 @@
+body {
+
+    background: #0b1020;
+
+    color: white;
+
+    min-height: 100vh;
+}
+
+h1 {
+
+    font-weight: bold;
+
+    color: #ffffff;
+}
+
+p {
+
+    color: #9ca3af;
+}
+
+.card {
+
+    background: #151c32;
+
+    border: 1px solid #28314f;
+
+    border-radius: 20px;
+
+    color: white;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,0.4);
+}
+
+.form-control {
+
+    background: #0f172a;
+
+    color: white;
+
+    border: 1px solid #374151;
+}
+
+.form-control:focus {
+
+    background: #0f172a;
+
+    color: white;
+
+    border-color: #3b82f6;
+
+    box-shadow: none;
+}
+
+.btn {
+
+    border-radius: 12px;
+}
+
+.stat-card {
+
+    text-align: center;
+
+    padding: 20px;
+}
+
+.stat-card h2 {
+
+    color: #38bdf8;
+}

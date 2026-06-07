@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from fastapi import UploadFile
 from fastapi import File
 from fastapi.responses import FileResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.requests import Request
+from fastapi.staticfiles import StaticFiles
 
 from api.services import (
     CompressionService,
@@ -22,19 +25,39 @@ app = FastAPI(
     version="3.1.0"
 )
 
+# Initialize database table
+CompressionDatabase.initialize()
+
+# ==================================================
+# Static Files & Templates Configuration
+# ==================================================
+
+app.mount(
+    "/static",
+    StaticFiles(directory="static"),
+    name="static"
+)
+
+templates = Jinja2Templates(
+    directory="templates"
+)
+
 
 # ==================================================
 # Home Endpoint
 # ==================================================
 
 @app.get("/")
-def home():
+async def frontend(
+    request: Request
+):
 
-    return {
-        "project": "Dynamic File Compression Utility",
-        "version": "3.1.0",
-        "status": "Running"
-    }
+    return templates.TemplateResponse(
+        name="index.html",
+        context={
+            "request": request
+        }
+    )
 
 
 # ==================================================
@@ -51,7 +74,8 @@ async def compress(
     return (
         CompressionService
         .compress_uploaded_file(
-            content
+            content,
+            file.filename
         )
     )
 
@@ -299,7 +323,7 @@ def delete_record(
             "Record not found"
     }
     
-    # ==================================================
+# ==================================================
 # Top Compressions
 # ==================================================
 
@@ -313,7 +337,7 @@ def top_compressions():
             .top_compressions()
     }
     
-    # ==================================================
+# ==================================================
 # Recent Compressions
 # ==================================================
 
@@ -374,7 +398,7 @@ def export_database():
         filename="compression.db"
     )
     
-    # ==================================================
+# ==================================================
 # Search Compression History
 # ==================================================
 

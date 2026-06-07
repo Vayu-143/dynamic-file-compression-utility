@@ -34,6 +34,8 @@ class CompressionDatabase:
                 id INTEGER PRIMARY KEY
                 AUTOINCREMENT,
 
+                operation TEXT,
+
                 filename TEXT,
 
                 original_size INTEGER,
@@ -56,6 +58,7 @@ class CompressionDatabase:
 
     @staticmethod
     def save_record(
+        operation,
         filename,
         original_size,
         compressed_size,
@@ -74,6 +77,7 @@ class CompressionDatabase:
             INSERT INTO
             compression_history (
 
+                operation,
                 filename,
                 original_size,
                 compressed_size,
@@ -82,9 +86,10 @@ class CompressionDatabase:
 
             )
 
-            VALUES (?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?)
             """,
             (
+                operation,
                 filename,
                 original_size,
                 compressed_size,
@@ -95,6 +100,56 @@ class CompressionDatabase:
 
         connection.commit()
         connection.close()
+
+    # ==================================================
+    # Count Operations
+    # ==================================================
+
+    @staticmethod
+    def compression_count():
+
+        connection = sqlite3.connect(
+            CompressionDatabase.DB_PATH
+        )
+
+        cursor = connection.cursor()
+
+        cursor.execute(
+            """
+            SELECT COUNT(*)
+            FROM compression_history
+            WHERE operation='Compression'
+            """
+        )
+
+        count = cursor.fetchone()[0]
+
+        connection.close()
+
+        return count
+
+    @staticmethod
+    def decompression_count():
+
+        connection = sqlite3.connect(
+            CompressionDatabase.DB_PATH
+        )
+
+        cursor = connection.cursor()
+
+        cursor.execute(
+            """
+            SELECT COUNT(*)
+            FROM compression_history
+            WHERE operation='Decompression'
+            """
+        )
+
+        count = cursor.fetchone()[0]
+
+        connection.close()
+
+        return count
 
     # ==================================================
     # Get All Records
@@ -115,7 +170,7 @@ class CompressionDatabase:
             """
             SELECT *
             FROM compression_history
-            ORDER BY id DESC
+            ORDER BY id ASC
             """
         )
 
@@ -209,8 +264,14 @@ class CompressionDatabase:
 
         cursor.execute(
             """
-            DELETE FROM
-            compression_history
+            DELETE FROM compression_history
+            """
+        )
+
+        cursor.execute(
+            """
+            DELETE FROM sqlite_sequence
+            WHERE name='compression_history'
             """
         )
 
@@ -249,7 +310,10 @@ class CompressionDatabase:
         return {
 
             "total_compressions":
-                row[0] or 0,
+                CompressionDatabase.compression_count(),
+
+            "total_decompressions":
+                CompressionDatabase.decompression_count(),
 
             "average_ratio":
                 round(
@@ -317,7 +381,7 @@ class CompressionDatabase:
             """
             SELECT *
             FROM compression_history
-            ORDER BY id DESC
+            ORDER BY id ASC
             LIMIT ?
             """,
             (limit,)

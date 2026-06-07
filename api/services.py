@@ -1,9 +1,11 @@
 import os
+import time
 import tempfile
 
 from src.huffman import HuffmanCoding
 from src.compressor import Compressor
 from src.decompressor import Decompressor
+from src.database import CompressionDatabase
 
 
 # ==================================================
@@ -13,7 +15,10 @@ from src.decompressor import Decompressor
 class CompressionService:
 
     @staticmethod
-    def compress_uploaded_file(content):
+    def compress_uploaded_file(
+        content,
+        filename="uploaded_file.txt"
+    ):
 
         temp_input = tempfile.NamedTemporaryFile(
             delete=False,
@@ -53,12 +58,19 @@ class CompressionService:
             "compressed_files/api_compressed.bin"
         )
 
+        start_time = time.time()
+
         original_size, compressed_size = (
             Compressor.compress(
                 temp_input.name,
                 output_file,
                 huffman
             )
+        )
+
+        execution_time = round(
+            time.time() - start_time,
+            6
         )
 
         os.remove(
@@ -76,7 +88,27 @@ class CompressionService:
             2
         )
 
+        print("BEFORE DATABASE INSERT")
+
+        CompressionDatabase.save_record(
+            operation="Compression",
+            filename=filename,
+            original_size=original_size,
+            compressed_size=compressed_size,
+            ratio=ratio,
+            execution_time=execution_time
+        )
+
+        print("AFTER DATABASE INSERT")
+
         return {
+
+            "status":
+                "success",
+
+            "filename":
+                filename,
+
             "original_size":
                 original_size,
 
@@ -84,7 +116,10 @@ class CompressionService:
                 compressed_size,
 
             "compression_ratio":
-                ratio
+                ratio,
+
+            "execution_time":
+                execution_time
         }
 
 
@@ -151,7 +186,17 @@ class DecompressionService:
             metadata_path
         )
 
+        CompressionDatabase.save_record(
+            operation="Decompression",
+            filename="restored.txt",
+            original_size=len(binary_content),
+            compressed_size=len(restored_text),
+            ratio=0,
+            execution_time=0
+        )
+
         return {
+
             "status":
                 "success",
 
